@@ -4,7 +4,22 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [],
+    /**
+     * baseUrl and paths must be explicitly repeated here (not just inherited
+     * from tsconfig.json) because Angular's esbuild-based application builder
+     * reads compiler options directly from the tsConfig file it is pointed at
+     * (tsconfig.app.json) rather than walking the extends chain for these two
+     * specific settings. Without this, @core/*, @shared/*, @features/*,
+     * @layouts/* aliases are not resolved during the build step.
+     */
+    "baseUrl": ".",
+    "paths": {
+      "@core/*":     ["src/core/*"],
+      "@shared/*":   ["src/shared/*"],
+      "@features/*": ["src/features/*"],
+      "@layouts/*":  ["src/layouts/*"]
+    }
   },
   "include": [
     "src/**/*.ts"

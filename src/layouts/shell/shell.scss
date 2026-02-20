@@ -1,0 +1,42 @@
+// Shell layout: full-height flex column
+// Ensures footer sticks to bottom even on short-content pages.
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.shell__main {
+  flex: 1;
+  // Remove focus ring on programmatic focus (keyboard users see outline on
+  // interactive children; this element gets focus via skip-link only)
+  outline: none;
+}
+
+// =============================================================================
+// Skip-to-content link (WCAG 2.4.1 bypass blocks)
+// Visually hidden until focused by keyboard
+// =============================================================================
+.skip-link {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: 9999;
+  padding: var(--space-3) var(--space-6);
+  background-color: var(--color-gold-500);
+  color: var(--bg-inverse);
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform var(--duration-fast) var(--ease-decelerate);
+
+  &:focus-visible {
+    transform: translateY(0);
+    outline: 2px solid var(--text-inverse);
+    outline-offset: 2px;
+  }
+}

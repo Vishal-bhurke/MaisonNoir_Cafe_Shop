@@ -1,0 +1,46 @@
+<section class="menu-preview" aria-labelledby="menu-preview-heading">
+  <div class="menu-preview__container">
+
+    <!-- ── Section header ────────────────────────────────────────── -->
+    <header class="menu-preview__header">
+      <p class="menu-preview__overline" appReveal [delay]="0">What we pour</p>
+      <h2
+        class="menu-preview__heading"
+        id="menu-preview-heading"
+        appReveal
+        [delay]="120"
+      >
+        A considered selection
+      </h2>
+      <p class="menu-preview__subheading" appReveal [delay]="220">
+        Every item on our menu is chosen with the same care as the beans we source.
+      </p>
+    </header>
+
+    <!-- ── Cards grid ────────────────────────────────────────────── -->
+    <ul
+      class="menu-preview__grid"
+      role="list"
+      aria-label="Featured menu items"
+    >
+      @for (item of featuredItems; track item.id; let i = $index) {
+        <li appReveal [delay]="i * 120">
+          <app-menu-card [item]="item" />
+        </li>
+      }
+    </ul>
+
+    <!-- ── CTA ───────────────────────────────────────────────────── -->
+    <div class="menu-preview__footer" appReveal [delay]="0">
+      <a
+        class="menu-preview__cta"
+        routerLink="/menu"
+        aria-label="View our full menu"
+      >
+        View full menu
+        <span class="menu-preview__cta-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+  </div>
+</section>

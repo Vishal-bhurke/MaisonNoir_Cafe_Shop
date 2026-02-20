@@ -1,0 +1,29 @@
+<article class="t-card" [attr.aria-label]="'Testimonial from ' + testimonial().author">
+
+  <!-- ── Star rating ───────────────────────────────────────────── -->
+  <span
+    class="t-card__stars"
+    role="img"
+    [attr.aria-label]="ratingLabel()"
+  >
+    @for (filled of stars(); track $index) {
+      <span
+        class="t-card__star"
+        [class.t-card__star--filled]="filled"
+        aria-hidden="true"
+      >★</span>
+    }
+  </span>
+
+  <!-- ── Quote ─────────────────────────────────────────────────── -->
+  <blockquote class="t-card__quote">
+    <p class="t-card__quote-text">{{ testimonial().quote }}</p>
+  </blockquote>
+
+  <!-- ── Attribution ───────────────────────────────────────────── -->
+  <footer class="t-card__author">
+    <cite class="t-card__author-name">{{ testimonial().author }}</cite>
+    <span class="t-card__author-location">{{ testimonial().location }}</span>
+  </footer>
+
+</article>

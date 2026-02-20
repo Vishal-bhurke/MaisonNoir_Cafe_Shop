@@ -1,0 +1,53 @@
+<article
+  class="menu-card"
+  [attr.aria-label]="item().name + ' — ' + formattedPrice()"
+>
+  <!-- ── Visual area ──────────────────────────────────────────────── -->
+  <div
+    class="menu-card__visual"
+    role="img"
+    [attr.aria-label]="item().imageAlt"
+  >
+    @if (item().imageUrl) {
+      <img
+        class="menu-card__img"
+        [src]="item().imageUrl"
+        [alt]="item().imageAlt"
+        width="400"
+        height="180"
+        loading="lazy"
+      />
+    } @else {
+      <span class="menu-card__category-icon" aria-hidden="true">
+        @switch (item().category) {
+          @case ('coffee')  { ☕ }
+          @case ('tea')     { ♨ }
+          @case ('pastry')  { ✦ }
+          @case ('food')    { ◈ }
+        }
+      </span>
+    }
+
+    @if (item().tag) {
+      <span
+        class="menu-card__tag"
+        [class]="'menu-card__tag--' + item().tag"
+        aria-label="{{ tagLabel() }} item"
+      >
+        {{ tagLabel() }}
+      </span>
+    }
+  </div>
+
+  <!-- ── Content ─────────────────────────────────────────────────── -->
+  <div class="menu-card__content">
+    <div class="menu-card__meta">
+      <h3 class="menu-card__name">{{ item().name }}</h3>
+      <p class="menu-card__price" aria-label="Price: {{ formattedPrice() }}">
+        {{ formattedPrice() }}
+      </p>
+    </div>
+    <p class="menu-card__description">{{ item().description }}</p>
+  </div>
+
+</article>

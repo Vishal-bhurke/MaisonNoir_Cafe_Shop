@@ -1,0 +1,56 @@
+<!-- ── Page hero ─────────────────────────────────────────────────────────── -->
+<section class="menu-hero" aria-labelledby="menu-heading">
+  <div class="menu-hero__backdrop" aria-hidden="true"></div>
+  <div class="menu-hero__container">
+    <p class="menu-hero__overline">Our Offerings</p>
+    <h1 class="menu-hero__heading" id="menu-heading">The&nbsp;Menu</h1>
+    <p class="menu-hero__subtitle">Sourced with intention. Prepared with care.</p>
+  </div>
+</section>
+
+<!-- ── Menu body ─────────────────────────────────────────────────────────── -->
+<section class="menu-body" aria-label="Full menu">
+  <div class="menu-body__inner">
+
+    <!-- Controls: filter + live count -->
+    <div class="menu-body__controls" appReveal [delay]="0">
+      <app-menu-filter
+        [categories]="filterCategories()"
+        [active]="activeCategory()"
+        (filterChange)="onCategoryChange($event)"
+      />
+      <!--
+        aria-live="polite" + aria-atomic="true": when the filter changes,
+        screen readers will announce the new count after the current utterance.
+      -->
+      <p
+        class="menu-body__count"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {{ filteredItems().length }}
+        {{ filteredItems().length === 1 ? 'item' : 'items' }}
+      </p>
+    </div>
+
+    <!-- Item grid -->
+    <!--
+      track item.id: Angular reuses DOM nodes for items visible across filter
+      changes (no re-animation, they were already showing) and creates new nodes
+      for items that newly appear (cardIn animation fires on DOM insertion).
+      This gives the smoothest perceived performance for a static dataset.
+    -->
+    <ul class="menu-grid" role="list" appReveal [delay]="80">
+      @for (item of filteredItems(); track item.id) {
+        <li class="menu-grid__item">
+          <app-menu-item-card [item]="item" />
+        </li>
+      } @empty {
+        <li class="menu-empty" role="status">
+          No items in this category yet — check back soon.
+        </li>
+      }
+    </ul>
+
+  </div>
+</section>

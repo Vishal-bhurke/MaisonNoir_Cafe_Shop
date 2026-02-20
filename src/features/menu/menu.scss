@@ -1,0 +1,174 @@
+// =============================================================================
+// MenuComponent styles
+// Two visual zones: dark espresso hero header + light cream body with grid.
+// =============================================================================
+
+:host {
+  display: block;
+}
+
+// ── Page hero ─────────────────────────────────────────────────────────────────
+// Compact dark header — consistent with the CTA section bookend on home page.
+// Not full-viewport: 240–320 px tall, just enough to frame the page title.
+
+.menu-hero {
+  position: relative;
+  background-color: var(--color-espresso-950);
+  padding-block: var(--space-20) var(--space-16);
+  text-align: center;
+  overflow: hidden;
+}
+
+.menu-hero__backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 110%,
+    rgba(196, 154, 42, 0.06) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+}
+
+.menu-hero__container {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+}
+
+.menu-hero__overline {
+  font-family:    var(--font-body);
+  font-size:      var(--text-overline);
+  font-weight:    var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color:          var(--color-gold-500);
+  margin-bottom:  var(--space-4);
+}
+
+.menu-hero__heading {
+  font-family:    var(--font-display);
+  font-style:     italic;
+  font-weight:    300;
+  font-size:      clamp(var(--text-h1), 7vw, var(--text-display-1));
+  line-height:    var(--leading-tight);
+  letter-spacing: var(--tracking-tighter);
+  color:          var(--text-inverse);
+  margin-bottom:  var(--space-4);
+}
+
+.menu-hero__subtitle {
+  font-family:  var(--font-body);
+  font-size:    var(--text-body);
+  color:        var(--color-espresso-300);
+  letter-spacing: var(--tracking-normal);
+}
+
+// ── Menu body ─────────────────────────────────────────────────────────────────
+
+.menu-body {
+  background-color: var(--bg-surface-1);
+  padding-block: var(--section-space);
+}
+
+.menu-body__inner {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+
+// ── Controls bar (filter + count) ─────────────────────────────────────────────
+
+.menu-body__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.menu-body__count {
+  font-family:    var(--font-body);
+  font-size:      var(--text-body-sm);
+  color:          var(--text-tertiary);
+  letter-spacing: var(--tracking-wide);
+  white-space:    nowrap;
+}
+
+// ── Menu grid ─────────────────────────────────────────────────────────────────
+// Mobile-first: single column → 2 columns → 3 columns.
+// The grid item wrapper animates on DOM insertion (new items only).
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// ── Card entrance animation ───────────────────────────────────────────────────
+//
+// The animation is placed on `.menu-grid__item` (which lives in menu.html and
+// is styled here) rather than inside menu-item-card.scss.
+// This lets us apply nth-child stagger without piercing view encapsulation.
+//
+// Behaviour:
+//   - On initial page load → all items stagger in (nth-child delays).
+//   - On filter change → items newly inserted stagger in; items whose DOM
+//     nodes are reused by Angular's track item.id stay calmly in place.
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-grid__item {
+  animation: cardIn var(--duration-normal) var(--ease-decelerate) both;
+}
+
+// Stagger: up to 12 items get progressively longer delays (50 ms increments).
+@for $i from 1 through 12 {
+  .menu-grid__item:nth-child(#{$i}) {
+    animation-delay: #{($i - 1) * 50}ms;
+  }
+}
+
+// ── Empty state ───────────────────────────────────────────────────────────────
+
+.menu-empty {
+  grid-column: 1 / -1;
+  padding-block: var(--space-16);
+  text-align: center;
+  font-family:  var(--font-body);
+  font-size:    var(--text-body);
+  color:        var(--text-tertiary);
+}
+
+// ── Reduced-motion override ───────────────────────────────────────────────────
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-grid__item {
+    animation: none;
+  }
+}

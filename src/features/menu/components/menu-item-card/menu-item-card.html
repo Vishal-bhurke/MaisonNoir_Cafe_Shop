@@ -1,0 +1,65 @@
+<article
+  class="menu-item-card"
+  [attr.aria-label]="item().name"
+>
+  <!-- ── Photo (shown only when imageUrl is set) ───────────────────── -->
+  @if (item().imageUrl) {
+    <div class="menu-item-card__image-wrap">
+      <img
+        class="menu-item-card__img"
+        [src]="item().imageUrl"
+        [alt]="item().imageAlt"
+        width="400"
+        height="200"
+        loading="lazy"
+      />
+    </div>
+  }
+
+  <!-- ── Header: category + optional tag ─────────────────────────── -->
+  <header class="menu-item-card__header">
+    <span class="menu-item-card__category">{{ categoryLabel() }}</span>
+
+    @if (tagLabel()) {
+      <!--
+        The tag is decorative context, not essential labelling.
+        aria-label on the article already names the item.
+        role="img" communicates to AT that this is a status badge, not a button.
+      -->
+      <span
+        class="menu-item-card__tag menu-item-card__tag--{{ item().tag }}"
+        role="img"
+        [attr.aria-label]="tagLabel() + ' item'"
+      >
+        {{ tagLabel() }}
+      </span>
+    }
+  </header>
+
+  <!-- ── Name + price row ─────────────────────────────────────────── -->
+  <div class="menu-item-card__title-row">
+    <h3 class="menu-item-card__name">{{ item().name }}</h3>
+    <!--
+      aria-label on the price paragraph gives screen readers a
+      natural reading: "Price: €3.20" rather than just "€3.20".
+    -->
+    <p
+      class="menu-item-card__price"
+      [attr.aria-label]="'Price: ' + formattedPrice()"
+    >
+      {{ formattedPrice() }}
+    </p>
+  </div>
+
+  <!-- ── Origin ────────────────────────────────────────────────────── -->
+  @if (item().origin) {
+    <p class="menu-item-card__origin">{{ item().origin }}</p>
+  }
+
+  <!-- ── Divider ───────────────────────────────────────────────────── -->
+  <hr class="menu-item-card__divider" aria-hidden="true" />
+
+  <!-- ── Description ──────────────────────────────────────────────── -->
+  <p class="menu-item-card__description">{{ item().description }}</p>
+
+</article>

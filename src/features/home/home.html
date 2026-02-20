@@ -1,0 +1,11 @@
+<!-- Hero is above the fold — no reveal delay, entrance is CSS keyframe-based -->
+<app-hero />
+
+<!-- All below-fold sections use RevealDirective for scroll-triggered entrance -->
+<app-about-preview appReveal [delay]="0" />
+
+<app-menu-preview appReveal [delay]="0" />
+
+<app-testimonials appReveal [delay]="0" />
+
+<app-cta-section appReveal [delay]="0" />

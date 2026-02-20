@@ -1,0 +1,18 @@
+// =============================================================================
+// Maison Noir — Design Token Barrel
+// =============================================================================
+// Import this single file in any SCSS partial that needs token access.
+// Order matters: colors first (referenced by elevation/borders), then the rest.
+//
+// Usage in component SCSS:
+//   @use 'src/styles/tokens/colors' as *;   ← for SCSS $variables
+//   — or —
+//   Use CSS custom properties directly (no import needed in components).
+// =============================================================================
+
+@use 'tokens/colors';
+@use 'tokens/typography';
+@use 'tokens/spacing';
+@use 'tokens/elevation';
+@use 'tokens/borders';
+@use 'tokens/animation';

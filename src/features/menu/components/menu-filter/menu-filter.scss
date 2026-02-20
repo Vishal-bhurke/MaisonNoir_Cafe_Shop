@@ -1,0 +1,96 @@
+// =============================================================================
+// MenuFilterComponent styles
+// Horizontal scrollable pill bar — light surface, gold active state.
+// =============================================================================
+
+:host {
+  display: block;
+  // Allow the bar to scroll horizontally on narrow viewports without
+  // showing a scrollbar (UX cleaner; keyboard users can still tab through)
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; // Firefox
+  &::-webkit-scrollbar { display: none; } // Webkit
+}
+
+.menu-filter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  // Prevent wrapping; let the host handle horizontal scroll on small screens
+  flex-wrap: nowrap;
+  // Small bottom padding so the active underline isn't clipped during scroll
+  padding-bottom: 2px;
+}
+
+// ── Filter pill button ────────────────────────────────────────────────────────
+
+.menu-filter__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-default);
+  background-color: transparent;
+  font-family:    var(--font-body);
+  font-size:      var(--text-body-sm);
+  font-weight:    var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  color:          var(--text-secondary);
+  white-space:    nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-normal) var(--ease-standard),
+    border-color     var(--duration-normal) var(--ease-standard),
+    color            var(--duration-normal) var(--ease-standard),
+    box-shadow       var(--duration-normal) var(--ease-standard);
+
+  &:hover:not(.menu-filter__btn--active) {
+    background-color: var(--bg-surface-2);
+    border-color: var(--color-espresso-300);
+    color: var(--text-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 3px;
+    border-radius: var(--radius-full);
+  }
+
+  // Active / selected state — gold pill
+  &--active {
+    background-color: var(--color-gold-500);
+    border-color:     var(--color-gold-500);
+    color:            var(--color-espresso-950);
+    box-shadow:       var(--shadow-gold);
+    font-weight:      var(--weight-semibold);
+  }
+}
+
+// ── Item count badge ──────────────────────────────────────────────────────────
+// aria-hidden="true" in the template — purely decorative number for sighted users.
+
+.menu-filter__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 18px;
+  padding-inline: var(--space-1);
+  border-radius: var(--radius-full);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  // Inactive: subtle dimmed badge
+  background-color: var(--bg-surface-2);
+  color: var(--text-tertiary);
+  transition:
+    background-color var(--duration-normal) var(--ease-standard),
+    color            var(--duration-normal) var(--ease-standard);
+
+  // Inside active pill: dark badge on gold background
+  .menu-filter__btn--active & {
+    background-color: rgba(28, 15, 7, 0.18);
+    color: var(--color-espresso-950);
+  }
+}

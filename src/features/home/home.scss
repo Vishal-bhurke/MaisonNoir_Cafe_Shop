@@ -1,0 +1,6 @@
+// HomeComponent is a pure layout shell — no local styles needed.
+// Each section component is fully self-contained with its own SCSS.
+
+:host {
+  display: block;
+}

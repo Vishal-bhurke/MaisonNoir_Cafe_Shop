@@ -1,0 +1,236 @@
+// =============================================================================
+// HeroComponent styles
+// Full-viewport dark section with CSS-keyframe entrance animation.
+// No IntersectionObserver — hero is always above the fold.
+// =============================================================================
+
+:host {
+  display: block;
+}
+
+// ── Section shell ─────────────────────────────────────────────────────────────
+
+.hero {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--color-espresso-950);
+}
+
+// ── Photo backdrop with dark overlay ──────────────────────────────────────────
+
+.hero__backdrop {
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+
+  // Multi-layer overlay: vertical vignette + warm radial accent
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        ellipse 80% 60% at 60% 40%,
+        rgba(90, 56, 32, 0.30) 0%,
+        transparent 70%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(14, 7, 3, 0.72) 0%,
+        rgba(14, 7, 3, 0.48) 40%,
+        rgba(14, 7, 3, 0.78) 100%
+      );
+  }
+}
+
+// ── Container ────────────────────────────────────────────────────────────────
+
+.hero__container {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-max);
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+  padding-block: var(--space-32) var(--space-24);
+}
+
+// ── Content block ─────────────────────────────────────────────────────────────
+
+.hero__content {
+  max-width: 700px;
+}
+
+// ── Overline ──────────────────────────────────────────────────────────────────
+
+.hero__overline {
+  font-family:    var(--font-body);
+  font-size:      var(--text-overline);
+  font-weight:    var(--weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color:          var(--color-gold-500);
+  margin-bottom:  var(--space-6);
+  opacity: 0;
+  animation: heroFadeUp var(--duration-slower) var(--ease-decelerate) 200ms forwards;
+}
+
+// ── Headline ──────────────────────────────────────────────────────────────────
+
+.hero__headline {
+  font-family:    var(--font-display);
+  font-style:     italic;
+  font-weight:    300;
+  letter-spacing: var(--tracking-tighter);
+  line-height:    var(--leading-tight);
+  color:          var(--text-inverse);
+  margin-bottom:  var(--space-6);
+  // Override heading defaults from _base.scss
+  font-size: clamp(4rem, 10vw, 6.5rem);
+}
+
+.hero__headline-line {
+  display: block;
+  opacity: 0;
+  animation: heroFadeUp var(--duration-slower) var(--ease-decelerate) 400ms forwards;
+
+  &--accent {
+    color: var(--color-gold-400);
+    animation-delay: 550ms;
+  }
+}
+
+// ── Tagline ───────────────────────────────────────────────────────────────────
+
+.hero__tagline {
+  font-family:   var(--font-body);
+  font-size:     var(--text-body-lg);
+  font-weight:   var(--weight-light);
+  line-height:   var(--leading-relaxed);
+  color:         var(--color-espresso-100);
+  max-width:     520px;
+  margin-bottom: var(--space-10);
+  opacity: 0;
+  animation: heroFadeUp var(--duration-slower) var(--ease-decelerate) 750ms forwards;
+}
+
+// ── Action buttons ────────────────────────────────────────────────────────────
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  opacity: 0;
+  animation: heroFadeUp var(--duration-slower) var(--ease-decelerate) 950ms forwards;
+}
+
+.hero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-sm);
+  font-family:    var(--font-body);
+  font-size:      var(--text-body-sm);
+  font-weight:    var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background-color var(--duration-normal) var(--ease-standard),
+    color            var(--duration-normal) var(--ease-standard),
+    border-color     var(--duration-normal) var(--ease-standard),
+    box-shadow       var(--duration-slow)   var(--ease-decelerate),
+    transform        var(--duration-slow)   var(--ease-decelerate);
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 3px;
+  }
+
+  &--primary {
+    background-color: var(--color-gold-500);
+    color:            var(--color-espresso-950);
+    border: 1.5px solid var(--color-gold-500);
+    box-shadow: var(--shadow-gold);
+
+    &:hover {
+      background-color: var(--color-gold-400);
+      border-color:     var(--color-gold-400);
+      box-shadow: 0 6px 24px rgba(196, 154, 42, 0.40);
+    }
+  }
+
+  &--outline {
+    background-color: transparent;
+    color:            var(--color-cream-200);
+    border: 1.5px solid var(--color-espresso-600);
+
+    &:hover {
+      border-color:     var(--color-espresso-300);
+      color:            var(--text-inverse);
+    }
+  }
+}
+
+// ── Scroll indicator ──────────────────────────────────────────────────────────
+
+.hero__scroll {
+  position: absolute;
+  bottom: var(--space-10);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  opacity: 0;
+  animation: heroFadeUp var(--duration-slower) var(--ease-decelerate) 1300ms forwards;
+}
+
+.hero__scroll-label {
+  font-family:    var(--font-body);
+  font-size:      var(--text-overline);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color:          var(--color-espresso-500);
+}
+
+.hero__scroll-line {
+  display: block;
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--color-espresso-500), transparent);
+  animation: scrollPulse 2.4s var(--ease-standard) 1600ms infinite;
+  transform-origin: top;
+}
+
+// ── Keyframes ─────────────────────────────────────────────────────────────────
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { transform: scaleY(1);   opacity: 1; }
+  50%       { transform: scaleY(0.4); opacity: 0.4; }
+}

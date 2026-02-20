@@ -1,0 +1,62 @@
+<section class="about-preview" aria-labelledby="about-preview-heading">
+  <div class="about-preview__container">
+
+    <!-- ── Text column ───────────────────────────────────────────── -->
+    <div class="about-preview__content">
+
+      <p class="about-preview__overline" appReveal [delay]="100">
+        Our Story
+      </p>
+
+      <h2
+        class="about-preview__heading"
+        id="about-preview-heading"
+        appReveal
+        [delay]="200"
+      >
+        Crafted with intention,<br aria-hidden="true">
+        served with care.
+      </h2>
+
+      <p class="about-preview__body" appReveal [delay]="320">
+        Maison Noir was born from a single belief: that coffee, done right,
+        is one of life's quiet luxuries. Every bean is selected by hand,
+        every extraction is a deliberate act, every cup a small celebration
+        of craft over convenience.
+      </p>
+
+      <p class="about-preview__body" appReveal [delay]="400">
+        We believe in unhurried mornings, honest ingredients, and a space
+        that feels like it was expecting you.
+      </p>
+
+      <a
+        class="about-preview__link"
+        routerLink="/about"
+        aria-label="Read the full Maison Noir story"
+        appReveal
+        [delay]="500"
+      >
+        Meet our team
+        <span class="about-preview__link-arrow" aria-hidden="true">→</span>
+      </a>
+
+    </div>
+
+    <!-- ── Visual column ─────────────────────────────────────────── -->
+    <div class="about-preview__visual" aria-hidden="true" appReveal [delay]="200">
+      <div class="about-preview__frame">
+        <img
+          class="about-preview__img"
+          src="/images/about-barista.jpg"
+          alt="Barista carefully preparing coffee at Maison Noir"
+          width="900"
+          height="1100"
+          loading="lazy"
+        />
+        <div class="about-preview__frame-accent"></div>
+      </div>
+    </div>
+
+  </div>
+</section>

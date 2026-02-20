@@ -1,0 +1,170 @@
+// =============================================================================
+// MenuItemCardComponent styles
+// Light cream surface card — full detail layout for the menu page grid.
+// Entry animation lives on the parent .menu-grid__item in menu.scss so that
+// nth-child stagger can be applied without piercing view encapsulation.
+// =============================================================================
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+// ── Photo strip ───────────────────────────────────────────────────────────────
+
+.menu-item-card__image-wrap {
+  // Bleed out of the card's padding so the photo touches the border edges
+  margin: calc(var(--space-6) * -1) calc(var(--space-6) * -1) var(--space-5);
+  overflow: hidden;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  flex-shrink: 0;
+}
+
+.menu-item-card__img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.menu-item-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--space-6);
+  background-color: var(--bg-base);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform   var(--duration-normal) var(--ease-decelerate),
+    box-shadow  var(--duration-normal) var(--ease-standard),
+    border-color var(--duration-normal) var(--ease-standard);
+
+  &:hover {
+    transform:    translateY(-3px);
+    box-shadow:   var(--shadow-md);
+    border-color: var(--color-cream-400);
+  }
+}
+
+// ── Header: category badge + tag ──────────────────────────────────────────────
+
+.menu-item-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.menu-item-card__category {
+  font-family:    var(--font-body);
+  font-size:      var(--text-overline);
+  font-weight:    var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color:          var(--color-espresso-400);
+}
+
+// ── Tag badges ────────────────────────────────────────────────────────────────
+// Each variant maps to a different brand signal:
+//   popular  → gold (brand accent — warm, established)
+//   seasonal → amber/terracotta (earthy, limited)
+//   new      → teal/sage (fresh, distinct)
+
+.menu-item-card__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-full);
+  font-family:    var(--font-body);
+  font-size:      var(--text-caption);
+  font-weight:    var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+
+  &--popular {
+    background-color: rgba(196, 154, 42, 0.12);
+    color: var(--color-gold-600);
+    border: 1px solid rgba(196, 154, 42, 0.25);
+  }
+
+  &--seasonal {
+    background-color: rgba(139, 90, 43, 0.10);
+    color: var(--color-espresso-600);
+    border: 1px solid rgba(139, 90, 43, 0.20);
+  }
+
+  &--new {
+    background-color: rgba(52, 120, 100, 0.10);
+    color: #2d7a68; // One-off teal — not in the palette, so hardcoded intentionally
+    border: 1px solid rgba(52, 120, 100, 0.20);
+  }
+}
+
+// ── Name + price row ──────────────────────────────────────────────────────────
+
+.menu-item-card__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+.menu-item-card__name {
+  font-family:  var(--font-heading);
+  font-size:    var(--text-h5);
+  font-weight:  var(--weight-semibold);
+  color:        var(--text-primary);
+  line-height:  var(--leading-snug);
+  // Allow the name to shrink; price stays fixed-width
+  flex: 1;
+  margin: 0;
+}
+
+.menu-item-card__price {
+  font-family:    var(--font-display);
+  font-style:     italic;
+  font-size:      var(--text-h5);
+  font-weight:    300;
+  color:          var(--color-gold-600);
+  white-space:    nowrap;
+  margin: 0;
+  // Slight upward optical alignment to sit on the same baseline as the name
+  padding-top: 1px;
+}
+
+// ── Origin ────────────────────────────────────────────────────────────────────
+
+.menu-item-card__origin {
+  font-family:  var(--font-body);
+  font-size:    var(--text-caption);
+  font-style:   italic;
+  color:        var(--text-tertiary);
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: var(--space-4);
+  margin-top: 0;
+}
+
+// ── Divider ───────────────────────────────────────────────────────────────────
+
+.menu-item-card__divider {
+  border: none;
+  border-top: 1px solid var(--border-default);
+  margin: 0 0 var(--space-4);
+}
+
+// ── Description ───────────────────────────────────────────────────────────────
+
+.menu-item-card__description {
+  font-family:  var(--font-body);
+  font-size:    var(--text-body-sm);
+  line-height:  var(--leading-relaxed);
+  color:        var(--text-secondary);
+  margin: 0;
+  // Push description to the bottom of the card so all cards in a row
+  // look consistent regardless of title/origin length
+  margin-top: auto;
+}

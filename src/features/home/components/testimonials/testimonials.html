@@ -1,0 +1,33 @@
+<section class="testimonials" aria-labelledby="testimonials-heading">
+  <div class="testimonials__container">
+
+    <!-- ── Section header ────────────────────────────────────────── -->
+    <header class="testimonials__header">
+      <p class="testimonials__overline" appReveal [delay]="0">
+        Our guests
+      </p>
+      <h2
+        class="testimonials__heading"
+        id="testimonials-heading"
+        appReveal
+        [delay]="120"
+      >
+        What they say
+      </h2>
+    </header>
+
+    <!-- ── Cards grid ────────────────────────────────────────────── -->
+    <ul
+      class="testimonials__grid"
+      role="list"
+      aria-label="Customer testimonials"
+    >
+      @for (testimonial of testimonials; track testimonial.id; let i = $index) {
+        <li appReveal [delay]="i * 130">
+          <app-testimonial-card [testimonial]="testimonial" />
+        </li>
+      }
+    </ul>
+
+  </div>
+</section>

@@ -1,0 +1,107 @@
+<header
+  class="navbar"
+  [class.navbar--scrolled]="isScrolled()"
+  role="banner"
+>
+  <div class="navbar__container">
+
+    <!-- ── Brand ─────────────────────────────────────────────────── -->
+    <a
+      class="navbar__brand"
+      routerLink="/"
+      aria-label="Maison Noir — return to home page"
+      (click)="closeMenu()"
+    >
+      <img
+        src="/icons/coffee.svg"
+        alt=""
+        aria-hidden="true"
+        width="20"
+        height="20"
+        class="navbar__brand-icon"
+      />
+      <div class="navbar__brand-text">
+        <span class="navbar__brand-name">{{ navService.navConfig.brand }}</span>
+        <span class="navbar__brand-tagline" aria-hidden="true">
+          {{ navService.navConfig.tagline }}
+        </span>
+      </div>
+    </a>
+
+    <!-- ── Desktop navigation ─────────────────────────────────────── -->
+    <nav class="navbar__nav" aria-label="Main navigation">
+      <ul class="navbar__links" role="list">
+        @for (link of navService.navConfig.links; track link.path) {
+          <li class="navbar__item">
+            <a
+              class="navbar__link"
+              [routerLink]="link.path"
+              routerLinkActive="navbar__link--active"
+              [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+              [attr.aria-label]="link.ariaLabel"
+              [attr.aria-current]="navService.isActive(link.path) ? 'page' : null"
+            >
+              {{ link.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <!-- ── Mobile hamburger ───────────────────────────────────────── -->
+    <!--
+      [class.navbar__toggle--open] drives the CSS hamburger→X animation.
+      aria-label is dynamic so screen readers announce the correct action.
+    -->
+    <button
+      class="navbar__toggle"
+      [class.navbar__toggle--open]="isMenuOpen()"
+      type="button"
+      [attr.aria-expanded]="isMenuOpen()"
+      aria-controls="mobile-nav-menu"
+      [attr.aria-label]="isMenuOpen() ? 'Close navigation menu' : 'Open navigation menu'"
+      (click)="toggleMenu()"
+    >
+      <span class="navbar__toggle-bar" aria-hidden="true"></span>
+      <span class="navbar__toggle-bar" aria-hidden="true"></span>
+      <span class="navbar__toggle-bar" aria-hidden="true"></span>
+    </button>
+
+  </div>
+
+  <!-- ── Mobile menu panel ──────────────────────────────────────── -->
+  <!--
+    [attr.inert] when menu is closed:
+      - Removes all children from the tab order
+      - Hides them from assistive-technology trees
+      - Prevents accidental focus inside the hidden panel
+    The `inert` attribute value is empty string ("") when closed, null when open.
+    Null removes the attribute entirely (standard Angular idiom).
+  -->
+  <div
+    id="mobile-nav-menu"
+    class="navbar__mobile"
+    [class.navbar__mobile--open]="isMenuOpen()"
+    [attr.inert]="isMenuOpen() ? null : ''"
+    role="navigation"
+    aria-label="Mobile navigation"
+  >
+    <ul class="navbar__mobile-links" role="list">
+      @for (link of navService.navConfig.links; track link.path) {
+        <li>
+          <a
+            class="navbar__mobile-link"
+            [routerLink]="link.path"
+            routerLinkActive="navbar__mobile-link--active"
+            [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+            [attr.aria-label]="link.ariaLabel"
+            [attr.aria-current]="navService.isActive(link.path) ? 'page' : null"
+            (click)="closeMenu()"
+          >
+            {{ link.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</header>

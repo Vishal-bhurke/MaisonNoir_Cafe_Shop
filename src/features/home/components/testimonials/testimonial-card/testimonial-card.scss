@@ -1,0 +1,102 @@
+// =============================================================================
+// TestimonialCardComponent styles
+// Rendered on the light cream surface of TestimonialsComponent.
+// =============================================================================
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.t-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  height: 100%;
+  padding: var(--space-8);
+  background-color: var(--bg-base);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-lift);
+  position: relative;
+
+  // Decorative opening quote mark
+  &::before {
+    content: '\201C'; // Unicode left double quotation mark
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-6);
+    font-family:    var(--font-display);
+    font-style:     italic;
+    font-size:      5rem;
+    line-height:    1;
+    color:          var(--color-cream-300);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-cream-400);
+  }
+}
+
+// ── Stars ─────────────────────────────────────────────────────────────────────
+
+.t-card__stars {
+  display: flex;
+  gap: 2px;
+}
+
+.t-card__star {
+  font-size:  1.125rem;
+  color:      var(--color-cream-300);
+  transition: color var(--duration-normal) var(--ease-standard);
+
+  &--filled {
+    color: var(--color-gold-500);
+  }
+}
+
+// ── Quote block ───────────────────────────────────────────────────────────────
+
+.t-card__quote {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.t-card__quote-text {
+  font-family: var(--font-body);
+  font-size:   var(--text-body);
+  font-style:  italic;
+  line-height: var(--leading-relaxed);
+  color:       var(--text-secondary);
+  margin: 0;
+}
+
+// ── Author attribution ────────────────────────────────────────────────────────
+
+.t-card__author {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border-default);
+}
+
+.t-card__author-name {
+  font-family:    var(--font-body);
+  font-size:      var(--text-body-sm);
+  font-style:     normal;
+  font-weight:    var(--weight-semibold);
+  color:          var(--text-primary);
+}
+
+.t-card__author-location {
+  font-size:      var(--text-caption);
+  color:          var(--text-tertiary);
+  letter-spacing: var(--tracking-wide);
+}

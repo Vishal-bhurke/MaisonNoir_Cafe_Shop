@@ -1,0 +1,49 @@
+<section class="hero" aria-label="Welcome to Maison Noir">
+
+  <!-- CSS gradient backdrop — no img needed, no broken asset risk -->
+  <div class="hero__backdrop" aria-hidden="true"></div>
+
+  <div class="hero__container">
+    <div class="hero__content">
+
+      <p class="hero__overline" aria-hidden="true">
+        Artisan Coffee · Est. 2018
+      </p>
+
+      <!-- H1 — page title, display scale, Cormorant Garamond italic -->
+      <h1 class="hero__headline">
+        <span class="hero__headline-line">Maison</span>
+        <span class="hero__headline-line hero__headline-line--accent">Noir</span>
+      </h1>
+
+      <p class="hero__tagline">
+        Where each cup is a quiet rebellion&nbsp;against&nbsp;the&nbsp;ordinary.
+      </p>
+
+      <div class="hero__actions">
+        <a
+          class="hero__btn hero__btn--primary"
+          routerLink="/menu"
+          aria-label="Explore our full menu"
+        >
+          Explore Menu
+        </a>
+        <a
+          class="hero__btn hero__btn--outline"
+          routerLink="/about"
+          aria-label="Read our story"
+        >
+          Our Story
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Decorative scroll indicator — hidden from assistive tech -->
+  <div class="hero__scroll" aria-hidden="true">
+    <span class="hero__scroll-label">Scroll</span>
+    <span class="hero__scroll-line"></span>
+  </div>
+
+</section>

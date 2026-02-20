@@ -1,0 +1,35 @@
+// =============================================================================
+// Maison Noir — Global Style Entry Point
+// Design System v1.0
+// =============================================================================
+// Load order is critical:
+//   1. Tokens  → CSS custom properties on :root (no visual output)
+//   2. Reset   → Normalize browser defaults
+//   3. Base    → Apply tokens to HTML elements
+// =============================================================================
+
+// 1. Design tokens — defines all CSS custom properties on :root
+@use 'styles/tokens/colors';
+@use 'styles/tokens/typography';
+@use 'styles/tokens/spacing';
+@use 'styles/tokens/elevation';
+@use 'styles/tokens/borders';
+@use 'styles/tokens/animation';
+
+// 2. CSS reset
+@use 'styles/reset';
+
+// 3. Base HTML element styles
+@use 'styles/base';
+
+// 4. Google Fonts import
+// Place this at the top of the compiled CSS via angular.json styles array
+// or add to index.html <head> as a <link> for better performance (preload).
+//
+// <link rel="preconnect" href="https://fonts.googleapis.com">
+// <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+// <link href="https://fonts.googleapis.com/css2?
+//   family=Cormorant+Garamond:ital,wght@1,300;1,400;1,500&
+//   family=Playfair+Display:wght@400;500;600;700&
+//   family=Inter:wght@300;400;500;600;700&
+//   display=swap" rel="stylesheet">

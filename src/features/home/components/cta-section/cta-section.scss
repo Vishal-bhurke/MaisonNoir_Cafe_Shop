@@ -1,0 +1,142 @@
+// =============================================================================
+// CtaSectionComponent styles
+// Dark espresso backdrop — bookends the page alongside the Hero.
+// =============================================================================
+
+:host {
+  display: block;
+}
+
+.cta {
+  position: relative;
+  background-color: var(--color-espresso-950);
+  padding-block: var(--section-space);
+  overflow: hidden;
+  text-align: center;
+}
+
+// ── Ambient gradient backdrop ─────────────────────────────────────────────────
+
+.cta__backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 100% 80% at 50% 120%,
+      rgba(196, 154, 42, 0.07) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 20% -20%,
+      rgba(90, 56, 32, 0.25) 0%,
+      transparent 60%
+    );
+  pointer-events: none;
+}
+
+// ── Container ─────────────────────────────────────────────────────────────────
+
+.cta__container {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+// ── Overline ──────────────────────────────────────────────────────────────────
+
+.cta__overline {
+  font-family:    var(--font-body);
+  font-size:      var(--text-overline);
+  font-weight:    var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color:          var(--color-gold-500);
+  margin: 0;
+}
+
+// ── Heading ───────────────────────────────────────────────────────────────────
+
+.cta__heading {
+  font-family:    var(--font-display);
+  font-style:     italic;
+  font-weight:    300;
+  font-size:      clamp(var(--text-h2), 5vw, var(--text-display-1));
+  line-height:    var(--leading-tight);
+  letter-spacing: var(--tracking-tighter);
+  color:          var(--text-inverse);
+  margin: 0;
+}
+
+// ── Address ───────────────────────────────────────────────────────────────────
+
+.cta__address {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.cta__address-line {
+  font-family: var(--font-body);
+  font-size:   var(--text-body);
+  color:       var(--color-espresso-100);
+  margin: 0;
+}
+
+.cta__hours {
+  font-family: var(--font-body);
+  font-size:   var(--text-body-sm);
+  color:       var(--color-espresso-300);
+  margin: 0;
+}
+
+// ── Action button ─────────────────────────────────────────────────────────────
+
+.cta__actions {
+  margin-top: var(--space-4);
+}
+
+.cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-10);
+  background-color: var(--color-gold-500);
+  color:            var(--color-espresso-950);
+  border: 1.5px solid var(--color-gold-500);
+  border-radius:    var(--radius-sm);
+  font-family:      var(--font-body);
+  font-size:        var(--text-body-sm);
+  font-weight:      var(--weight-semibold);
+  letter-spacing:   var(--tracking-wide);
+  text-transform:   uppercase;
+  text-decoration:  none;
+  box-shadow:       var(--shadow-gold);
+  transition:
+    background-color var(--duration-normal) var(--ease-standard),
+    border-color     var(--duration-normal) var(--ease-standard),
+    transform        var(--duration-slow)   var(--ease-decelerate),
+    box-shadow       var(--duration-slow)   var(--ease-decelerate);
+
+  &:hover {
+    background-color: var(--color-gold-400);
+    border-color:     var(--color-gold-400);
+    transform:        translateY(-2px);
+    box-shadow: 0 8px 28px rgba(196, 154, 42, 0.40);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-cream-50);
+    outline-offset: 3px;
+  }
+}
+
+.cta__btn-icon {
+  flex-shrink: 0;
+}

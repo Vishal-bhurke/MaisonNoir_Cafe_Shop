@@ -1,0 +1,122 @@
+// =============================================================================
+// Maison Noir — Color Tokens
+// Design System v1.0
+// =============================================================================
+// Architecture: SCSS variables (compile-time) + CSS Custom Properties (runtime)
+// Naming convention: --color-{palette}-{step}
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// SCSS Source Variables (compile-time — use inside SCSS functions/mixins)
+// -----------------------------------------------------------------------------
+
+// Primary: Espresso family
+$color-espresso-950: #100804;
+$color-espresso-900: #1c0f07;
+$color-espresso-800: #2c1a0e; // Primary brand color
+$color-espresso-700: #3d2514;
+$color-espresso-600: #5a3820;
+$color-espresso-500: #7a5230;
+$color-espresso-300: #b08060;
+$color-espresso-100: #d4b89a;
+
+// Secondary: Cream family
+$color-cream-50:  #fefcf8; // Primary light background
+$color-cream-100: #faf4e8;
+$color-cream-200: #f2e6cc;
+$color-cream-300: #e8d5b0;
+$color-cream-400: #d9bf8a;
+$color-cream-500: #c8a46a;
+
+// Accent: Antique Gold
+$color-gold-600: #9a6e1a;
+$color-gold-500: #c49a2a; // Primary accent
+$color-gold-400: #d4aa40;
+$color-gold-300: #e0c068;
+$color-gold-100: #f5e9c0;
+
+// Semantic: Success (warm green, not clinical)
+$color-success-500: #4a7c59;
+$color-success-100: #d6ead0;
+
+// Semantic: Warning
+$color-warning-500: #c47c20;
+$color-warning-100: #fce9c8;
+
+// Semantic: Error
+$color-error-500: #b03a2e;
+$color-error-100: #f5d0cc;
+
+// Semantic: Info
+$color-info-500: #2e6a8c;
+$color-info-100: #c8e0ee;
+
+// Overlay
+$color-overlay: rgba(16, 8, 4, 0.6);
+
+// -----------------------------------------------------------------------------
+// CSS Custom Properties (runtime — use in component styles and templates)
+// Applied to :root so they cascade everywhere.
+// Dark mode overrides applied via [data-theme="dark"] on <html>.
+// -----------------------------------------------------------------------------
+
+:root {
+  // --- Espresso palette ---
+  --color-espresso-950: #{$color-espresso-950};
+  --color-espresso-900: #{$color-espresso-900};
+  --color-espresso-800: #{$color-espresso-800};
+  --color-espresso-700: #{$color-espresso-700};
+  --color-espresso-600: #{$color-espresso-600};
+  --color-espresso-500: #{$color-espresso-500};
+  --color-espresso-300: #{$color-espresso-300};
+  --color-espresso-100: #{$color-espresso-100};
+
+  // --- Cream palette ---
+  --color-cream-50:  #{$color-cream-50};
+  --color-cream-100: #{$color-cream-100};
+  --color-cream-200: #{$color-cream-200};
+  --color-cream-300: #{$color-cream-300};
+  --color-cream-400: #{$color-cream-400};
+  --color-cream-500: #{$color-cream-500};
+
+  // --- Gold accent palette ---
+  --color-gold-600: #{$color-gold-600};
+  --color-gold-500: #{$color-gold-500};
+  --color-gold-400: #{$color-gold-400};
+  --color-gold-300: #{$color-gold-300};
+  --color-gold-100: #{$color-gold-100};
+
+  // --- Semantic colors ---
+  --color-success-500: #{$color-success-500};
+  --color-success-100: #{$color-success-100};
+  --color-warning-500: #{$color-warning-500};
+  --color-warning-100: #{$color-warning-100};
+  --color-error-500:   #{$color-error-500};
+  --color-error-100:   #{$color-error-100};
+  --color-info-500:    #{$color-info-500};
+  --color-info-100:    #{$color-info-100};
+
+  // --- Background layers ---
+  --bg-base:             #{$color-cream-50};
+  --bg-surface-1:        #{$color-cream-100};
+  --bg-surface-2:        #{$color-cream-200};
+  --bg-surface-3:        #{$color-cream-300};
+  --bg-inverse:          #{$color-espresso-900};
+  --bg-inverse-elevated: #{$color-espresso-800};
+  --bg-overlay:          #{$color-overlay};
+
+  // --- Text hierarchy ---
+  --text-primary:   #{$color-espresso-900};
+  --text-secondary: #{$color-espresso-600};
+  --text-tertiary:  #{$color-espresso-500};
+  --text-disabled:  #{$color-espresso-100};
+  --text-inverse:   #{$color-cream-50};
+  --text-accent:    #{$color-gold-600};
+
+  // --- Border colors ---
+  --border-default:  #{$color-cream-300};
+  --border-strong:   #{$color-espresso-300};
+  --border-inverse:  #{$color-espresso-600};
+  --border-accent:   #{$color-gold-500};
+  --border-error:    #{$color-error-500};
+}

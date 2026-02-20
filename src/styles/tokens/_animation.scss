@@ -1,0 +1,95 @@
+// =============================================================================
+// Maison Noir — Animation & Motion Tokens
+// Design System v1.0
+// =============================================================================
+// Philosophy:
+//   1. Subtlety over spectacle — motion serves function, not decoration.
+//   2. Exit faster than entrance (100ms exit / 300ms entrance standard).
+//   3. Stagger multi-element reveals by 60–80ms per item.
+//   4. All motion must degrade gracefully under prefers-reduced-motion.
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// SCSS Variables
+// -----------------------------------------------------------------------------
+
+// Duration scale
+$duration-instant:   0ms;
+$duration-fast:      100ms;
+$duration-normal:    200ms;
+$duration-slow:      300ms;
+$duration-slower:    500ms;
+$duration-slowest:   800ms;
+$duration-cinematic: 1200ms;
+
+// Stagger increment (for sequenced list reveals)
+$duration-stagger:   70ms;
+
+// Easing functions
+$ease-standard:    cubic-bezier(0.4, 0, 0.2, 1);    // Default — most transitions
+$ease-decelerate:  cubic-bezier(0.0, 0, 0.2, 1);    // Elements entering screen
+$ease-accelerate:  cubic-bezier(0.4, 0, 1, 1);      // Elements leaving screen
+$ease-spring:      cubic-bezier(0.34, 1.56, 0.64, 1); // Playful bouncy arrival
+$ease-sharp:       cubic-bezier(0.4, 0, 0.6, 1);    // Snappy state toggles
+$ease-linear:      linear;                           // Progress bars, spinners
+
+// -----------------------------------------------------------------------------
+// CSS Custom Properties
+// -----------------------------------------------------------------------------
+
+:root {
+  // --- Duration scale ---
+  --duration-instant:   #{$duration-instant};
+  --duration-fast:      #{$duration-fast};
+  --duration-normal:    #{$duration-normal};
+  --duration-slow:      #{$duration-slow};
+  --duration-slower:    #{$duration-slower};
+  --duration-slowest:   #{$duration-slowest};
+  --duration-cinematic: #{$duration-cinematic};
+  --duration-stagger:   #{$duration-stagger};
+
+  // --- Easing functions ---
+  --ease-standard:   #{$ease-standard};
+  --ease-decelerate: #{$ease-decelerate};
+  --ease-accelerate: #{$ease-accelerate};
+  --ease-spring:     #{$ease-spring};
+  --ease-sharp:      #{$ease-sharp};
+  --ease-linear:     #{$ease-linear};
+
+  // --- Composed transition shorthands ---
+  // Hover color/background
+  --transition-color: color var(--duration-normal) var(--ease-standard),
+                      background-color var(--duration-normal) var(--ease-standard),
+                      border-color var(--duration-normal) var(--ease-standard);
+
+  // Card/image lift (hover elevation)
+  --transition-lift: transform var(--duration-slow) var(--ease-decelerate),
+                     box-shadow var(--duration-slow) var(--ease-decelerate);
+
+  // Fade in/out
+  --transition-fade: opacity var(--duration-slow) var(--ease-standard);
+
+  // Slide + fade entrance (e.g. dropdown, modal)
+  --transition-enter: transform var(--duration-slower) var(--ease-decelerate),
+                      opacity var(--duration-slower) var(--ease-standard);
+
+  // Focus ring appearance
+  --transition-focus: outline-offset var(--duration-fast) var(--ease-standard);
+}
+
+// -----------------------------------------------------------------------------
+// Reduced Motion Override
+// WCAG 2.1 §2.3.3 — collapse all animation for motion-sensitive users.
+// Apply globally; individual components must NOT override this block.
+// -----------------------------------------------------------------------------
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

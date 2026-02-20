@@ -1,0 +1,25 @@
+<!--
+  role="group" + aria-label: announced to screen readers as
+  "Filter menu by category, group" before reading the buttons inside.
+
+  Each button uses aria-pressed (true/false) which communicates the
+  toggle state to assistive technology ("Coffee, toggle button, pressed").
+  This is the correct ARIA pattern for exclusive-selection filters — simpler
+  to implement correctly than role="tablist" (which requires arrow-key nav).
+-->
+<div class="menu-filter" role="group" aria-label="Filter menu by category">
+  @for (cat of categories(); track cat.value) {
+    <button
+      class="menu-filter__btn"
+      [class.menu-filter__btn--active]="active() === cat.value"
+      type="button"
+      [attr.aria-pressed]="active() === cat.value"
+      (click)="onSelect(cat.value)"
+    >
+      {{ cat.label }}
+      <span class="menu-filter__count" aria-hidden="true">
+        {{ cat.count }}
+      </span>
+    </button>
+  }
+</div>

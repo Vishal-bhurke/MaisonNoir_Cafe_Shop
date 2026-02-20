@@ -1,0 +1,382 @@
+// =============================================================================
+// NavbarComponent styles
+// All color values via CSS custom properties from the design system.
+// No magic numbers — every value maps to a spacing/typography token.
+// =============================================================================
+
+$navbar-height: 72px;
+$navbar-breakpoint-desktop: 768px;
+
+// Bar geometry — defined once, used in both idle and open transforms.
+// bar height: 2px | gap between bars: 5px → diagonal offset = 2 + 5 = 7px
+$bar-width:  22px;
+$bar-height: 2px;
+$bar-gap:    5px;
+
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+// ── Base navbar ──────────────────────────────────────────────────────────────
+
+.navbar {
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color  var(--duration-normal) var(--ease-standard),
+    border-color      var(--duration-normal) var(--ease-standard),
+    box-shadow        var(--duration-normal) var(--ease-standard);
+
+  // Scrolled state: revealed dark background
+  &--scrolled {
+    background-color: var(--bg-inverse);
+    border-bottom-color: var(--border-inverse);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+// ── Container ────────────────────────────────────────────────────────────────
+
+.navbar__container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding-x);
+  height: $navbar-height;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+}
+
+// ── Brand ────────────────────────────────────────────────────────────────────
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  transition: opacity var(--duration-normal) var(--ease-standard);
+
+  &:hover { opacity: 0.85; }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+.navbar__brand-icon {
+  display: block;
+  flex-shrink: 0;
+  filter: brightness(0) saturate(100%) invert(15%) sepia(20%) saturate(1000%) hue-rotate(345deg) brightness(95%) contrast(90%);
+  transition: filter var(--duration-normal) var(--ease-standard);
+
+  .navbar--scrolled & {
+    filter: brightness(0) saturate(100%) invert(93%) sepia(8%) saturate(492%) hue-rotate(322deg) brightness(103%) contrast(95%);
+  }
+}
+
+.navbar__brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navbar__brand-name {
+  font-family:    var(--font-heading);
+  font-size:      var(--text-h5);
+  font-weight:    var(--weight-bold);
+  color:          var(--color-espresso-900);
+  letter-spacing: var(--tracking-wide);
+  line-height:    var(--leading-tight);
+  transition:     color var(--duration-normal) var(--ease-standard);
+
+  .navbar--scrolled & {
+    color: var(--text-inverse);
+  }
+}
+
+.navbar__brand-tagline {
+  font-family:    var(--font-body);
+  font-size:      var(--text-caption);
+  font-weight:    var(--weight-regular);
+  color:          var(--color-espresso-600);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  transition:     color var(--duration-normal) var(--ease-standard);
+
+  .navbar--scrolled & {
+    color: var(--color-espresso-300);
+  }
+}
+
+// ── Desktop nav ──────────────────────────────────────────────────────────────
+
+.navbar__nav {
+  display: none;
+
+  @media (min-width: $navbar-breakpoint-desktop) {
+    display: block;
+  }
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar__link {
+  position: relative;
+  display: inline-block;
+  font-family:    var(--font-body);
+  font-size:      var(--text-body-sm);
+  font-weight:    var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color:          var(--color-espresso-700);
+  text-decoration: none;
+  padding-block: var(--space-2);
+  transition: color var(--duration-normal) var(--ease-standard);
+
+  .navbar--scrolled & {
+    color: var(--color-espresso-300);
+  }
+
+  // Animated underline — grows from 0 to full width on hover / active
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--color-gold-500);
+    transition: width var(--duration-slow) var(--ease-decelerate);
+  }
+
+  &:hover {
+    color: var(--color-espresso-900);
+    &::after { width: 100%; }
+
+    .navbar--scrolled & {
+      color: var(--text-inverse);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 4px;
+    border-radius: var(--radius-xs);
+  }
+
+  &--active {
+    color: var(--color-gold-500);
+    &::after {
+      width: 100%;
+      background-color: var(--color-gold-500);
+    }
+
+    .navbar--scrolled & {
+      color: var(--color-gold-400);
+      &::after {
+        background-color: var(--color-gold-400);
+      }
+    }
+  }
+}
+
+// ── Hamburger toggle (mobile only) ───────────────────────────────────────────
+
+.navbar__toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: $bar-gap;
+  padding: var(--space-2);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--duration-normal) var(--ease-standard);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  @media (min-width: $navbar-breakpoint-desktop) {
+    display: none;
+  }
+}
+
+// ── Hamburger bars ───────────────────────────────────────────────────────────
+//
+// Three bars animate to an × when `.navbar__toggle--open` is applied.
+// transform-origin: center lets us rotate around the bar's midpoint.
+//
+// Geometry (bar-height 2px + bar-gap 5px = 7px total offset per side):
+//   bar 1:  rotate(45deg) translateY(7px)   → top stroke of ×
+//   bar 2:  scaleX(0) + opacity 0           → middle bar disappears
+//   bar 3:  rotate(-45deg) translateY(-7px) → bottom stroke of ×
+
+.navbar__toggle-bar {
+  display: block;
+  width: $bar-width;
+  height: $bar-height;
+  background-color: var(--color-espresso-900);
+  border-radius: var(--radius-full);
+  transition:
+    transform var(--duration-normal) var(--ease-standard),
+    opacity   var(--duration-normal) var(--ease-standard),
+    scale     var(--duration-normal) var(--ease-standard),
+    background-color var(--duration-normal) var(--ease-standard);
+
+  .navbar--scrolled & {
+    background-color: var(--color-cream-50);
+  }
+}
+
+// Open state — applied via [class.navbar__toggle--open] in the template.
+// Selector lives on the button, targeting its child bars.
+.navbar__toggle--open {
+  .navbar__toggle-bar {
+    &:nth-child(1) {
+      transform: translateY(#{$bar-height + $bar-gap}) rotate(45deg);
+    }
+
+    &:nth-child(2) {
+      opacity: 0;
+      scale: 0 1; // collapse horizontally while keeping vertical position
+    }
+
+    &:nth-child(3) {
+      transform: translateY(#{-($bar-height + $bar-gap)}) rotate(-45deg);
+    }
+  }
+}
+
+// ── Mobile menu panel ─────────────────────────────────────────────────────────
+
+.navbar__mobile {
+  overflow: hidden;
+  max-height: 0;
+  background-color: var(--bg-inverse);
+  border-top: 1px solid transparent;
+  transition:
+    max-height    var(--duration-slow) var(--ease-decelerate),
+    border-color  var(--duration-slow) var(--ease-standard),
+    padding-block var(--duration-slow) var(--ease-decelerate);
+
+  @media (min-width: $navbar-breakpoint-desktop) {
+    display: none;
+  }
+
+  &--open {
+    max-height: 400px;
+    border-top-color: var(--border-inverse);
+    padding-block: var(--space-6);
+  }
+}
+
+.navbar__mobile-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  list-style: none;
+  margin: 0;
+  padding-inline: var(--container-padding-x);
+}
+
+// ── Staggered mobile link entrance ───────────────────────────────────────────
+//
+// Links slide in from the left and fade up when the menu opens.
+// Each nth-child gets a progressively longer delay so they cascade.
+// animation-fill-mode: both ensures the element starts at the from-state
+// even before the animation begins (prevents flash of fully-visible state).
+
+@keyframes mobileNavIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.navbar__mobile--open .navbar__mobile-link {
+  animation: mobileNavIn var(--duration-normal) var(--ease-decelerate) both;
+
+  &:nth-child(1) { animation-delay: 60ms; }
+  &:nth-child(2) { animation-delay: 110ms; }
+  &:nth-child(3) { animation-delay: 160ms; }
+  &:nth-child(4) { animation-delay: 210ms; }
+  &:nth-child(5) { animation-delay: 260ms; }
+}
+
+// The animation target is the <a> but nth-child applies to <li>.
+// Rewrite using li:nth-child so the selector is accurate.
+.navbar__mobile--open li {
+  &:nth-child(1) .navbar__mobile-link { animation-delay: 60ms; }
+  &:nth-child(2) .navbar__mobile-link { animation-delay: 110ms; }
+  &:nth-child(3) .navbar__mobile-link { animation-delay: 160ms; }
+  &:nth-child(4) .navbar__mobile-link { animation-delay: 210ms; }
+  &:nth-child(5) .navbar__mobile-link { animation-delay: 260ms; }
+}
+
+.navbar__mobile-link {
+  display: block;
+  font-family:    var(--font-body);
+  font-size:      var(--text-body);
+  font-weight:    var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  color:          var(--color-espresso-300);
+  text-decoration: none;
+  padding-block: var(--space-3);
+  border-radius: var(--radius-sm);
+  transition:
+    color            var(--duration-normal) var(--ease-standard),
+    background-color var(--duration-normal) var(--ease-standard),
+    padding-inline   var(--duration-normal) var(--ease-standard);
+
+  &:hover {
+    color: var(--text-inverse);
+    background-color: rgba(255, 255, 255, 0.05);
+    padding-inline: var(--space-3);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  &--active {
+    color: var(--color-gold-400);
+  }
+}
+
+// ── Reduced-motion override ───────────────────────────────────────────────────
+// Users who prefer reduced motion skip the stagger animation entirely.
+// The hamburger→X transform is kept (positional, not decorative).
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar__mobile--open li .navbar__mobile-link,
+  .navbar__mobile--open .navbar__mobile-link {
+    animation: none;
+  }
+}

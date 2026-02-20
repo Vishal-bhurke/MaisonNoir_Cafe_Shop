@@ -1,0 +1,84 @@
+// =============================================================================
+// Maison Noir — Minimal CSS Reset
+// Design System v1.0
+// =============================================================================
+// Based on Josh Comeau's modern reset, adapted for the Maison Noir design system.
+// Intentionally minimal — we reset only what the browser inconsistently applies.
+// =============================================================================
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  // Prevent font-size inflation on mobile (iOS Safari)
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  // Smooth scroll for anchor navigation (overridden by reduced-motion in _animation.scss)
+  scroll-behavior: smooth;
+  // Use hardware-accelerated scroll
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  // Prevent subpixel rendering inconsistencies
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  // Minimum height for sticky footer layouts
+  min-height: 100dvh;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+// Avoid text overflow in all block elements
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+// Remove list styling — re-apply per component where semantically appropriate
+ul,
+ol {
+  list-style: none;
+}
+
+// Remove default anchor decoration — components apply their own
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+// Consistent table styling
+table {
+  border-collapse: collapse;
+}
+
+// Remove default button styles — components apply their own
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
